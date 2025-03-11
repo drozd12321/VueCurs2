@@ -1,6 +1,8 @@
 <script>
 export default {
-  props: [],
+  props: {
+    openNews: Number,
+  },
   data() {
     return {
       dt: new Date(),
@@ -16,15 +18,21 @@ export default {
 <template>
   <div class="head">
     <h3>Новости на {{ dt }}</h3>
+    <span>Открыто: {{ openNews }}</span>
   </div>
+  <div></div>
 </template>
 <style scoped>
 header {
   margin: 0;
 }
+span {
+  color: white;
+  font-size: 20px;
+}
 .head {
   background-color: rgb(61, 61, 65);
-  height: 50px;
+  height: auto;
   width: 99%;
   margin-top: 0;
   padding: 10px;

@@ -1,11 +1,25 @@
 <script>
 export default {
+  props: {
+    title: String,
+    description: String,
+    id: Number,
+    isOpen: Boolean,
+  },
   data() {
     return {
-      title: 'Новость 1',
-      descr: 'Lorem vLorem Lorem LoremLoremv  Lorem v  Lorem vv',
-      isOpen: false,
+      localOpen: this.isOpen,
     }
+  },
+  methods: {
+    open() {
+      this.localOpen = !this.localOpen
+      if (this.localOpen) {
+        this.$emit('openNews')
+      } else {
+        this.$emit('closeNews')
+      }
+    },
   },
 }
 </script>
@@ -13,8 +27,8 @@ export default {
   <div class="cont">
     <div class="news">
       <h3>{{ title }}</h3>
-      <button @click="isOpen = !isOpen">Открыть</button>
-      <p v-if="isOpen">{{ descr }}</p>
+      <button @click="open">{{ localOpen ? 'Закрыть' : 'Открыть' }}</button>
+      <p v-if="localOpen">{{ description }}</p>
     </div>
   </div>
 </template>

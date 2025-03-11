@@ -10,17 +10,33 @@ export default {
   data() {
     return {
       title: 'Project Vue',
-      news: ['News 1', 'News 2', 'News 3', 'News 4', 'News 5'],
+      news: [
+        { title: 'News 1', description: 'Description 1', id: 1, isOpen: false },
+        { title: 'News 2', description: 'Description 1', id: 2, isOpen: false },
+        { title: 'News 3', description: 'Description 1', id: 3, isOpen: false },
+        { title: 'News 4', description: 'Description 1', id: 4, isOpen: false },
+        { title: 'News 5', description: 'Description 1', id: 5, isOpen: false },
+      ],
+      openNews: 0,
     }
   },
 }
 </script>
 
 <template>
-  <Header></Header>
+  <Header :openNews="openNews"></Header>
 
   <main>
-    <AddNews></AddNews>
+    <AddNews
+      v-for="item in news"
+      :title="item.title"
+      :description="item.description"
+      :key="item.id"
+      :is-open="item.isOpen"
+      :id="item.id"
+      @openNews="this.openNews++"
+      @closeNews="this.openNews--"
+    ></AddNews>
   </main>
 </template>
 
