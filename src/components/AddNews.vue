@@ -5,6 +5,19 @@ export default {
     description: String,
     id: Number,
     isOpen: Boolean,
+    isRead: Boolean,
+  },
+  emits: {
+    writeNews(i) {
+      if (i) {
+        return true
+      }
+      console.warn('No id News')
+      return false
+    },
+    openNews: null,
+    closeNews: null,
+    unwriteNews: null,
   },
   data() {
     return {
@@ -22,11 +35,13 @@ export default {
     },
     writeNews() {
       this.localOpen = !this.localOpen
-      if (this.localOpen) {
-        this.$emit('openNews')
-      } else {
-        this.$emit('closeNews')
-      }
+      this.$emit('writeNews', this.id)
+      this.$emit('closeNews')
+    },
+    unwriteNews() {
+      this.localOpen = !this.localOpen
+      this.$emit('unwriteNews', this.id)
+      this.$emit('closeNews')
     },
   },
 }
@@ -39,7 +54,12 @@ export default {
       <div class="new" v-if="localOpen">
         <hr />
         <p>{{ description }}</p>
-        <button @click="writeNews" class="btn primary">Прочесть новость</button>
+        <button v-if="!isRead" @click="writeNews" :class="{ btn: true, primary: true }">
+          Прочитать Новость
+        </button>
+        <button v-else-if="isRead" @click="unwriteNews" :class="{ dis: true }">
+          Отметить непрочитанной
+        </button>
       </div>
     </div>
   </div>
@@ -66,7 +86,11 @@ export default {
   justify-content: center;
   align-items: center;
   border-radius: 6px;
-  margin-top: 10px;
+  margin-top: 20px;
+  transition: transform 0.5s ease;
+}
+.news:hover {
+  transform: translateY(-8px);
 }
 button {
   padding: 7px;
@@ -80,5 +104,10 @@ button {
 }
 h3 {
   font-size: 25px;
+}
+.dis {
+  background-color: brown;
+  color: white;
+  border: none;
 }
 </style>
