@@ -1,15 +1,27 @@
-<script></script>
+<script>
+import AddNews from './components/AddNews.vue'
+import Header from './components/Header.vue'
+
+export default {
+  components: {
+    Header,
+    AddNews,
+  },
+  data() {
+    return {
+      title: 'Project Vue',
+      news: ['News 1', 'News 2', 'News 3', 'News 4', 'News 5'],
+    }
+  },
+}
+</script>
 
 <template>
-  <header>
-    <h1>Vue Header</h1>
-  </header>
+  <Header></Header>
 
-  <main></main>
+  <main>
+    <AddNews></AddNews>
+  </main>
 </template>
 
-<style scoped>
-header {
-  color: red;
-}
-</style>
+<style scoped></style>
