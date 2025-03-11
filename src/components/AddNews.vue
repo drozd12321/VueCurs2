@@ -20,6 +20,14 @@ export default {
         this.$emit('closeNews')
       }
     },
+    writeNews() {
+      this.localOpen = !this.localOpen
+      if (this.localOpen) {
+        this.$emit('openNews')
+      } else {
+        this.$emit('closeNews')
+      }
+    },
   },
 }
 </script>
@@ -28,11 +36,23 @@ export default {
     <div class="news">
       <h3>{{ title }}</h3>
       <button @click="open">{{ localOpen ? 'Закрыть' : 'Открыть' }}</button>
-      <p v-if="localOpen">{{ description }}</p>
+      <div class="new" v-if="localOpen">
+        <hr />
+        <p>{{ description }}</p>
+        <button @click="writeNews" class="btn primary">Прочесть новость</button>
+      </div>
     </div>
   </div>
 </template>
 <style>
+.primary {
+  background-color: rgb(3, 77, 3);
+  color: white;
+  border: none;
+}
+.new {
+  width: 99%;
+}
 .cont {
   display: flex;
   justify-content: center;

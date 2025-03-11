@@ -2,6 +2,7 @@
 export default {
   props: {
     openNews: Number,
+    writeNews: Number,
   },
   data() {
     return {
@@ -18,7 +19,7 @@ export default {
 <template>
   <div class="head">
     <h3>Новости на {{ dt }}</h3>
-    <span>Открыто: {{ openNews }}</span>
+    <span>Открыто: {{ openNews }} | Прочитано {{ writeNews }}</span>
   </div>
   <div></div>
 </template>

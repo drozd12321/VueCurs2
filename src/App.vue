@@ -18,13 +18,14 @@ export default {
         { title: 'News 5', description: 'Description 1', id: 5, isOpen: false },
       ],
       openNews: 0,
+      writeNews: 0,
     }
   },
 }
 </script>
 
 <template>
-  <Header :openNews="openNews"></Header>
+  <Header :writeNews="writeNews" :openNews="openNews"></Header>
 
   <main>
     <AddNews
@@ -36,6 +37,7 @@ export default {
       :id="item.id"
       @openNews="this.openNews++"
       @closeNews="this.openNews--"
+      @writeNews="this.writeNews++"
     ></AddNews>
   </main>
 </template>
