@@ -1,5 +1,12 @@
 <script>
+import AppButton from './AppButton.vue'
+import AppNewsList from './AppNewsList.vue'
+
 export default {
+  components: {
+    AppButton,
+    AppNewsList,
+  },
   props: {
     title: String,
     description: String,
@@ -50,26 +57,24 @@ export default {
   <div class="cont">
     <div class="news">
       <h3>{{ title }}</h3>
-      <button @click="open">{{ localOpen ? 'Закрыть' : 'Открыть' }}</button>
+      <AppButton @action="open">
+        {{ localOpen ? 'Закрыть' : 'Открыть' }}
+      </AppButton>
       <div class="new" v-if="localOpen">
         <hr />
         <p>{{ description }}</p>
-        <button v-if="!isRead" @click="writeNews" :class="{ btn: true, primary: true }">
+        <AppButton v-if="!isRead" @action="writeNews" color="primary">
           Прочитать Новость
-        </button>
-        <button v-else-if="isRead" @click="unwriteNews" :class="{ dis: true }">
+        </AppButton>
+        <AppButton v-else-if="isRead" @action="unwriteNews" color="dis">
           Отметить непрочитанной
-        </button>
+        </AppButton>
+        <AppNewsList></AppNewsList>
       </div>
     </div>
   </div>
 </template>
-<style>
-.primary {
-  background-color: rgb(3, 77, 3);
-  color: white;
-  border: none;
-}
+<style scoped>
 .new {
   width: 99%;
 }
@@ -92,22 +97,8 @@ export default {
 .news:hover {
   transform: translateY(-8px);
 }
-button {
-  padding: 7px;
-  background-color: transparent;
-  border: 2px solid rgb(29, 236, 29);
-  color: rgb(4, 121, 4);
-  font-weight: 500;
-  font-size: 15px;
-  border-radius: 7px;
-  margin-bottom: 5px;
-}
+
 h3 {
   font-size: 25px;
-}
-.dis {
-  background-color: brown;
-  color: white;
-  border: none;
 }
 </style>

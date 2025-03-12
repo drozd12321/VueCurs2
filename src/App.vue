@@ -1,60 +1,59 @@
 <script>
-import AddNews from './components/AddNews.vue'
+import AppButton from './components/AppButton.vue'
+import AppComponentOne from './components/AppComponentOne.vue'
+import AppComponentTwo from './components/AppComponentTwo.vue'
+import AsyncComponent from './components/AsyncComponent.vue'
 import Header from './components/Header.vue'
 
 export default {
   components: {
     Header,
-    AddNews,
+    AppButton,
+    AppComponentOne,
+    AppComponentTwo,
+    AsyncComponent,
   },
   data() {
     return {
-      title: 'Project Vue',
-      news: [
-        { title: 'News 1', description: 'Description 1', id: 1, isOpen: false, isRead: false },
-        { title: 'News 2', description: 'Description 1', id: 2, isOpen: false, isRead: false },
-        { title: 'News 3', description: 'Description 1', id: 3, isOpen: false, isRead: false },
-        { title: 'News 4', description: 'Description 1', id: 4, isOpen: false, isRead: false },
-        { title: 'News 5', description: 'Description 1', id: 5, isOpen: false, isRead: false },
-      ],
-      openNews: 0,
-      writeNews: 0,
+      isState: 'One',
     }
   },
-  methods: {
-    readNews(i) {
-      console.log(i)
-      this.writeNews++
-      this.news.map((item) => (item.id === i ? (item.isRead = !item.isRead) : ''))
+  computed: {
+    componentName() {
+      return 'AppComponent' + this.isState
     },
-    unreadNews(i) {
-      console.log(i)
-      this.writeNews--
-      this.news.map((item) => (item.id === i ? (item.isRead = !item.isRead) : ''))
+    oneColor() {
+      return this.isState === 'One' ? 'primary' : ''
+    },
+    twoColor() {
+      return this.isState === 'Two' ? 'primary' : ''
     },
   },
 }
 </script>
 
 <template>
-  <Header :writeNews="writeNews" :openNews="openNews"></Header>
-
-  <main>
-    <AddNews
-      v-for="item in news"
-      :title="item.title"
-      :description="item.description"
-      :key="item.id"
-      :is-open="item.isOpen"
-      :id="item.id"
-      :is-read="item.isRead"
-      @openNews="this.openNews++"
-      @closeNews="this.openNews--"
-      @writeNews="readNews"
-      @unwriteNews="unreadNews"
-    ></AddNews
-    >npm
-  </main>
+  <Header></Header>
+  <div class="container">
+    <AsyncComponent></AsyncComponent>
+    <h1>Динамические компоненты</h1>
+    <AppButton @action="isState = 'One'" :color="oneColor">One</AppButton>
+    <AppButton @action="isState = 'Two'" :color="twoColor">Two</AppButton>
+    <hr />
+    <keep-alive>
+      <component :is="componentName"></component>
+    </keep-alive>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+  background-color: rgb(54, 51, 51);
+  color: rgb(230, 229, 229);
+  border-radius: 10px;
+  width: 97%;
+  height: auto;
+  padding: 5px;
+  margin-top: 10px;
+}
+</style>
